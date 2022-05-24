@@ -4,12 +4,15 @@ import LoadingPage from "./LoadingPage.js"
 
 import Actions from './Actions.js'
 
+import { formatDate } from "../app/format.js"
+
 const row = (bill) => {
+  // formatDate() permet d'afficher les dates selon le format demandé après leur tri
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td data-testid="formatDate">${formatDate(bill.date)}</td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -20,7 +23,9 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  return (data && data.length) ? data.sort((a, b) => ((a.date < b.date) ? 1 : -1)) /* Les dates sont triées par ordre décroissant */
+                                     .map(bill => row(bill))
+                                     .join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
