@@ -38,7 +38,7 @@ export default class {
             try {
               return {
                 ...doc,
-                date: doc.date, /* Les dates sont brutes pour pouvoir les trier */
+                date: doc.date,
                 status: formatStatus(doc.status)
               }
             } catch(e) {

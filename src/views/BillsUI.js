@@ -7,7 +7,6 @@ import Actions from './Actions.js'
 import { formatDate } from "../app/format.js"
 
 const row = (bill) => {
-  // formatDate() permet d'afficher les dates selon le format demandé après leur tri
   return (`
     <tr>
       <td>${bill.type}</td>
