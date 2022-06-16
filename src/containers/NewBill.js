@@ -6,14 +6,17 @@ export default class NewBill {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
-    const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
-    formNewBill.addEventListener("submit", this.handleSubmit)
-    const file = this.document.querySelector(`input[data-testid="file"]`)
-    file.addEventListener("change", this.handleChangeFile)
-    this.fileUrl = null
-    this.fileName = null
-    this.billId = null
-    new Logout({ document, localStorage, onNavigate })
+    // in prod environment
+    if (typeof jest === 'undefined') {
+      const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
+      formNewBill.addEventListener("submit", this.handleSubmit)
+      const file = this.document.querySelector(`input[data-testid="file"]`)
+      file.addEventListener("change", this.handleChangeFile)
+      this.fileUrl = null
+      this.fileName = null
+      this.billId = null
+      new Logout({ document, localStorage, onNavigate })
+    }
   }
   handleChangeFile = e => {
     e.preventDefault()
