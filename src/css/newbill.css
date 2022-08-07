@@ -22,6 +22,13 @@
   border-radius: 5px;
 }
 
+.error-border {
+  opacity: 0.5;
+  border: 2px solid red !important;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
 label {
   font-style: normal;
   font-weight: 500;
@@ -60,4 +67,13 @@ textarea:focus, input:focus, select:focus {
 
 *[placeholder] {
   color: #0E5AE5 !important;
+}
+
+.error-file-message {
+  visibility: hidden
+}
+
+.error-file-message.visible{
+  visibility: visible;
+  color: red;
 }

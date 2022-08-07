@@ -7,26 +7,26 @@ export default class NewBill {
     this.onNavigate = onNavigate
     this.store = store
     // in prod environment
-    if (typeof jest === 'undefined') {
-      const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
-      formNewBill.addEventListener("submit", this.handleSubmit)
-      const file = this.document.querySelector(`input[data-testid="file"]`)
-      file.addEventListener("change", this.handleChangeFile)
-      this.fileUrl = null
-      this.fileName = null
-      this.billId = null
-      new Logout({ document, localStorage, onNavigate })
-    }
+    const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
+    formNewBill.addEventListener("submit", this.handleSubmit)
+    const file = this.document.querySelector(`input[data-testid="file"]`)
+    file.addEventListener("change", this.handleChangeFile)
+    this.fileUrl = null
+    this.fileName = null
+    this.billId = null
+    new Logout({ document, localStorage, onNavigate })
   }
+
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]
+    const input = this.document.querySelector(`input[data-testid="file"]`)
+    // const filePath = e.target.value.split(/\\/g)
+    // const fileName = filePath[filePath.length-1]
+    const fileName = input.files[0].name
     const fileExtension = fileName.split(".").pop()
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
-
     // Check if file extension is valid before creating new bill
     switch (fileExtension) {
       case 'jpg':
@@ -43,13 +43,16 @@ export default class NewBill {
             }
           })
           .then(({fileUrl, key}) => {
-            console.log(fileUrl)
+            input.nextElementSibling.classList.remove('visible')
+            input.classList.remove('error-border')
             this.billId = key
             this.fileUrl = fileUrl
             this.fileName = fileName
           }).catch(error => console.error(error))
         break;
       default:
+        input.nextElementSibling.classList.add('visible')
+        input.classList.add('error-border')
         e.target.value = ''
         console.error('Extension du fichier non valide')
     }
@@ -57,7 +60,8 @@ export default class NewBill {
 
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    console.log("handleSubmit e.target", e.target)
+    // console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
