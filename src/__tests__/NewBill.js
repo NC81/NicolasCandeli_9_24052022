@@ -111,7 +111,7 @@ describe("Given I am a user connected as an employee", () => {
       fileName: "preview-facture-free-201801-pdf-1.jpg",
       status: "pending"
     }
-    test("Then submitting a new bill should complete new bill creation" , async () => {
+    test("Then clicking the submit button should complete new bill creation" , async () => {
       const newBill = new NewBill({document, onNavigate, store, localStorage})
       
       const type = screen.queryByTestId("expense-type")
@@ -167,7 +167,7 @@ describe("Given I am a user connected as an employee", () => {
     })
   })
   describe("When I am on NewBill page and an error occurs on API", () => {
-    test("Then adding a file to the file input fails with a 404 console message error", async () => {
+    test("Then adding a file to the file input fails with 404 error message in console", async () => {
       jest.spyOn(mockStore, "bills")
       const spyStoreCreate = jest.spyOn(mockStore.bills(), "create")
       console.error = jest.fn()
@@ -197,7 +197,7 @@ describe("Given I am a user connected as an employee", () => {
       expect(spyStoreCreate).toHaveBeenCalled()
       expect(console.error).toHaveBeenCalled()
     })
-    test("Then submitting a new bill fails with 500 console message error", async () => {
+    test("Then submitting a new bill fails with 500 error message in console", async () => {
       jest.spyOn(mockStore, "bills")
       const spyStoreUpdate = jest.spyOn(mockStore.bills(), "update")
       console.error = jest.fn()

@@ -45,7 +45,7 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted)
     })
   })
-  describe("When I am on Bills page and I click on an eye icon", () => {
+  describe("When I am on Bills page and I click an eye icon", () => {
     test("Then bill modal should be opened", () => {
       document.body.innerHTML = BillsUI({ data: bills })
 
@@ -63,7 +63,7 @@ describe("Given I am connected as an employee", () => {
       expect(modale).toBeTruthy()
     })
   })
-  describe("When I am on Bills page and I click on the new bill button", () => {
+  describe("When I am on Bills page and I click the new bill button", () => {
     test("Then I should go to NewBill page", async () => {
       const root = document.createElement("div")
       root.setAttribute("id", "root")
@@ -131,7 +131,7 @@ describe("Given I am a user connected as an employee", () => {
       document.body.appendChild(root)
       router()
     })
-    test("Then it fetches from an API and fails with 404 message error", async () => {
+    test("Then it fetches from an API and fails with 404 error message", async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
@@ -143,7 +143,7 @@ describe("Given I am a user connected as an employee", () => {
       const message = await screen.getByText(/Erreur 404/)
       expect(message).toBeTruthy()
     })
-    test("Then it fetches from an API and fails with 500 message error", async () => {
+    test("Then it fetches from an API and fails with 500 error message", async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
